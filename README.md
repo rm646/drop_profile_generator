@@ -9,7 +9,8 @@ profiles, and does not allow rising drop profiles.
 
 [Berry et al.'s  paper](https://doi.org/10.1016/j.jcis.2015.05.012) provides a
 good background on pendant drop measurements and the equations solved here,
-and also links to the [OpenDrop project](https://github.com/FrostadResearch/Pendant-drop-tensiometer-v2/tree/master/OpenDrop%20Software%20Package)for measuring surface tension from pendant drop profiles.
+and also links to the [OpenDrop project](https://github.com/FrostadResearch/Pendant-drop-tensiometer-v2/tree/master/OpenDrop%20Software%20Package) for measuring surface tension from pendant drop
+profiles.
 
 ## Usage
 

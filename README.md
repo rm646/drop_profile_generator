@@ -16,7 +16,8 @@ and also links to the [OpenDrop project](https://github.com/FrostadResearch/Pend
 This is for Python 3:
 
 ```
-python dpg_main.py [-h] [-nw NEEDLEWIDTH] [-ift INTERFACIALTENSION] [-dd DENSITYDIFF] [-R0 DROPDIM] [-N GRIDWIDTH] [-M GRIDHEIGHT] [-s SCALE]
+python dpg_main.py [-h] [-nw NEEDLEWIDTH] [-ift INTERFACIALTENSION]
+    [-dd DENSITYDIFF] [-R0 DROPDIM] [-N GRIDWIDTH] [-M GRIDHEIGHT] [-s SCALE]
 ```
 
 The output is a png, with all parameters and the run date included in the

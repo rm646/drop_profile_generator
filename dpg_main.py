@@ -1,15 +1,15 @@
 #---modules
-import numpy as np
-import matplotlib.pyplot as plt
-import pylab as pl
 import sys
 import argparse
 import math
-from scipy.integrate import odeint
-import scipy.integrate as integrate
-import scipy.special as special
 import datetime
 import imageio
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pylab as pl
+
+from scipy.integrate import odeint
 
 #---argument parsing
 parser = argparse.ArgumentParser()
@@ -34,37 +34,37 @@ tolerance_nw = 0.001 #in mm #values of r within this tolerance of the needle wid
 
 if args.needlewidth ==None: args.needlewidth = defaultnw
 elif args.needlewidth<=0 :
-    print "Needle width must be >0. Instead using default value of ",defaultnw
+    print("Needle width must be >0. Instead using default value of ",defaultnw)
     args.needlewidth = defaultnw
 
 if args.densitydiff ==None: args.densitydiff = defaultdd
 elif args.densitydiff<=0 :
-    print "Density difference must be >0. Instead using default value of ",defaultdd
+    print("Density difference must be >0. Instead using default value of ",defaultdd)
     args.densitydiff = defaultdd
 
 if args.dropdim ==None: args.dropdim = defaultR0
 elif args.dropdim<=0 :
-    print "Drop dimension must be >0. Instead using default value of ",defaultR0
+    print("Drop dimension must be >0. Instead using default value of ",defaultR0)
     args.dropdim = defaultR0
 
 if args.interfacialtension ==None: args.interfacialtension = defaultift
 elif args.interfacialtension<=0 :
-    print "Interfacial tension must be >0. Instead using default value of ",defaultift
+    print("Interfacial tension must be >0. Instead using default value of ",defaultift)
     args.dropdim = defaultift
 
 if args.gridwidth ==None : args.gridwidth = defaultN
 elif args.gridwidth<=0 :
-    print "N must be >0. Instead using default value of ",defaultN
+    print("N must be >0. Instead using default value of ",defaultN)
     args.gridwidth = defaultN
 
 if args.gridheight ==None : args.gridheight = defaultM
 elif args.gridheight<=0 :
-    print "M must be >0. Instead using default value of ",defaultM
+    print("M must be >0. Instead using default value of ",defaultM)
     args.gridheight = defaultM
 
 if args.scale ==None : args.scale = defaultScale
 elif args.scale<=0 :
-    print "Scale must be >0. Instead using default value of ",defaultScale
+    print("Scale must be >0. Instead using default value of ",defaultScale)
     args.scale = defaultScale
 
 #---Calculate Bo
@@ -127,7 +127,7 @@ i_rns = i_rns[np.where(i_rns > i_phi_g_90[0])[0]]
 i_rn = None #initial value for the index of the point the needle will touch. If the needle is outside tolerance, this value will remain unchanged
 if i_rns.size!=0: i_rn = i_rns[np.argmin(i_rns)]
 else:
-    print "Needle width is too small to have a drop which is more than a hemisphere. Such cases are currently not allowed."
+    print("Needle width is too small to have a drop which is more than a hemisphere. Such cases are currently not allowed.")
     exit()
 
 #---Form a pixel image of the drop and needle
@@ -149,21 +149,21 @@ for point in sol[:i_rn,:]:
     shift = (args.gridheight-z_top-nheight)
     #handle profile overrun
     if r_px > args.gridwidth/2 or shift<0:
-        print "Profile exceeded frame. Adjust image scale or make a smaller drop."
+        print("Profile exceeded frame. Adjust image scale or make a smaller drop.")
         exit()
     #set image
-    image[(z_px+shift)][args.gridwidth/2:((args.gridwidth/2)+r_px)] = 0
+    image[int(z_px+shift)][int(args.gridwidth/2):(int(args.gridwidth/2)+r_px)] = 0
 
 #add needle
 for j in range(0,args.gridheight):
     if (j > args.gridheight-nheight):#sol[i_rn,2]*args.dropdim*scale): #if above needle contact, fill black to needle width
         needle_edge_px = int(scale*(args.needlewidth/2.0))
-        image[j][args.gridwidth/2:(args.gridwidth/2 + needle_edge_px)] = 0
+        image[j][int(args.gridwidth/2):(int(args.gridwidth/2) + needle_edge_px)] = 0
 
 #mirror around centre line
 for j in range(0,args.gridheight):
-    for i in range(0, args.gridwidth/2):
-        image[j][args.gridwidth/2 - i] = image[j][args.gridwidth/2 + i]
+    for i in range(0, int(args.gridwidth/2)):
+        image[j][int(args.gridwidth/2) - i] = image[j][int(args.gridwidth/2) + i]
 
 #---Add 100px buffer to drop bottom
 #buffer = np.zeros((100,args.gridwidth)) + 255
